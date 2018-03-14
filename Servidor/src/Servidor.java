@@ -15,9 +15,9 @@ public class Servidor {
         try
         {
             ss =new ServerSocket(puerto);
-//            ss.setSoTimeout(5000);
-            ss.setReceiveBufferSize(655300);
-
+//            ss.setSoTimeout(60000);
+//            ss.setReceiveBufferSize(655300);
+            System.out.println(ss.getReceiveBufferSize());
         }
         catch (IOException e) {
             System.err.println("No pudo crear socket en el puerto:"+ puerto);

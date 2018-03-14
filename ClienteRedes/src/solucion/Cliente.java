@@ -24,14 +24,6 @@ public class Cliente {
 		out = new PrintWriter(socket.getOutputStream(), true);
 	}
 	
-	public boolean conectar() throws IOException {
-		System.out.println("enter connect");
-		out.println("CONNECT");
-		String res = in.readLine();
-		System.out.println("CONNECT -> " + res);
-		return res.equals("CONNECTED");
-	}
-	
 	public String[] list() throws IOException {
 		out.println("LIST");
 		return in.readLine().split(PAR);
