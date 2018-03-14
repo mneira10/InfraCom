@@ -7,7 +7,7 @@ public class Servidor {
     public static void main(String[] args) throws Exception {
 
         String ip = "localhost";
-        int puerto = 9000;
+        int puerto = 9001;
         int cont = 0 ;
         ServerSocket ss = null;
         boolean continuar = true;

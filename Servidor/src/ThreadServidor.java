@@ -39,8 +39,10 @@ public class ThreadServidor extends Thread{
 
     public void procesar(BufferedReader lector, PrintWriter escritor) throws IOException {
         String linea= lector.readLine();
+        System.out.println(linea   );
         boolean terminado = false;
         while(!terminado && !linea.equals("CLOSE") ) {
+            System.out.println("entra");
             switch (linea) {
                 case "CONNECT":
                     System.out.println("enter connected");
@@ -90,8 +92,11 @@ public class ThreadServidor extends Thread{
 //                    System.out.println("Socket cerrado" + sktCliente.isClosed());
                     break;
             }
+            System.out.println("sale switch"+terminado);
             if(!terminado){
+                System.out.println("entra a leer");
                 linea = lector.readLine();
+                System.out.println(linea);
             }
 
         }
