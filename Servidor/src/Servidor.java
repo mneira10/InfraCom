@@ -7,7 +7,7 @@ public class Servidor {
     public static void main(String[] args) throws Exception {
 
         String ip = "localhost";
-        int puerto = 9001;
+        int puerto = 9000;
         int cont = 0 ;
         ServerSocket ss = null;
         boolean continuar = true;
@@ -16,7 +16,7 @@ public class Servidor {
         {
             ss =new ServerSocket(puerto);
 //            ss.setSoTimeout(5000);
-//            ss.setReceiveBufferSize(15);
+            ss.setReceiveBufferSize(655300);
 
         }
         catch (IOException e) {

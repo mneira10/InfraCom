@@ -7,6 +7,7 @@ import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 
 public class Cliente {
 	
@@ -85,6 +86,7 @@ public class Cliente {
 			System.out.println("Connecting...");
 
 			// receive file
+//			byte [] mybytearray  = new byte [602238600];
 			byte [] mybytearray  = new byte [602238600];
 			InputStream is = socket.getInputStream();
 
@@ -93,8 +95,12 @@ public class Cliente {
 			bytesRead = is.read(mybytearray,0,mybytearray.length);
 			current = bytesRead;
 
+			String msq = "";
 			do {
 				bytesRead = is.read(mybytearray, current, (mybytearray.length-current));
+                if (bytesRead != -1) {
+                	System.out.println((bytesRead + " bytes read"));
+				}
 				if(bytesRead >= 0) current += bytesRead;
 			} while(bytesRead > -1);
 

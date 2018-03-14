@@ -26,7 +26,7 @@ public class ThreadServidor extends Thread{
         System.out.println("Inicio de nuevo thread." + id);
         try (PrintWriter escritor = new
                 PrintWriter(sktCliente.getOutputStream(), true);
-                BufferedReader lector = new BufferedReader(new InputStreamReader(sktCliente.getInputStream()))){
+             BufferedReader lector = new BufferedReader(new InputStreamReader(sktCliente.getInputStream()))){
 
             procesar(lector,escritor);
 //            escritor.close();
@@ -39,18 +39,26 @@ public class ThreadServidor extends Thread{
 
     public void procesar(BufferedReader lector, PrintWriter escritor) throws IOException {
         String linea= lector.readLine();
-        System.out.println(linea   );
         boolean terminado = false;
         while(!terminado && !linea.equals("CLOSE") ) {
-            System.out.println("entra");
             switch (linea) {
                 case "CONNECT":
                     System.out.println("enter connected");
                     escritor.println("CONNECTED");
                     break;
                 case "LIST":
-                    System.out.println("enter list");
-                    escritor.println("3mb.jpg;;starWars.jpg;;space.jpg;;spacex.jpg");
+//                    escritor.println("history.jpg;;starWars.jpg;;space.jpg;;spacex.jpg");
+                    String res = "";
+                    File dir = new File("data");
+                    File[] directoryListing = dir.listFiles();
+                    if (directoryListing != null) {
+                        for (File child : directoryListing) {
+                            res += child.getName() + ";;";
+                        }
+                    }
+                    res = res.substring(0, res.length() - 2);
+                    System.out.println("sending " + res);
+                    escritor.println(res);
                     break;
                 default:
                     String temp = linea.split("::")[1];
@@ -81,7 +89,6 @@ public class ThreadServidor extends Thread{
 
 //                    System.out.println("Socket cerrado" + sktCliente.isClosed());
 
-                    escritor.println("Fin de conexion");
                     escritor.close();
                     lector.close();
                     bis.close();
@@ -92,11 +99,8 @@ public class ThreadServidor extends Thread{
 //                    System.out.println("Socket cerrado" + sktCliente.isClosed());
                     break;
             }
-            System.out.println("sale switch"+terminado);
             if(!terminado){
-                System.out.println("entra a leer");
                 linea = lector.readLine();
-                System.out.println(linea);
             }
 
         }

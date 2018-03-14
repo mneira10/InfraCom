@@ -20,7 +20,7 @@ public class PanelOpciones extends JPanel implements ActionListener{
 	
 	private final JButton btnConectar;
 	private final JButton btnListar;
-	private final JButton btnVerLineas;
+	private final JButton btnDescargar;
 	
 	public PanelOpciones(InterfazCliente principal){
 		frmPrincipal = principal;
@@ -39,17 +39,32 @@ public class PanelOpciones extends JPanel implements ActionListener{
 		btnListar.addActionListener(this);
 		add(btnListar);
 		
-		btnVerLineas = new JButton(DESCARGAR);
-		btnVerLineas.setActionCommand(DESCARGAR);
-		btnVerLineas.addActionListener(this);
-		add(btnVerLineas);
+		btnDescargar = new JButton(DESCARGAR);
+		btnDescargar.setActionCommand(DESCARGAR);
+		btnDescargar.addActionListener(this);
+		add(btnDescargar);
+
+		toggle();
+	}
+
+	public void toggle() {
+		if (btnListar.isEnabled()) {
+			btnListar.setEnabled(false);
+			btnDescargar.setEnabled(false);
+			btnConectar.setText("Conectar");
+		} else {
+			btnListar.setEnabled(true);
+			btnDescargar.setEnabled(true);
+			btnConectar.setText("Desconectar");
+		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String com = e.getActionCommand();
 		if(com.equals(CONECTAR)){
-			frmPrincipal.conectar();
+			frmPrincipal.conexion();
+			toggle();
 		}else if(com.equals(LISTAR)){
 			frmPrincipal.listar();
 		}else if(com.equals(DESCARGAR)){
